@@ -1,50 +1,56 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "layout.html" %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flowbite Flask</title>
-    <link rel="stylesheet" href="{{url_for('static',filename='dist/output.css')}}">
-</head>
+{% block container %}
+{% import "_macros.html" as macros %} 
 
-<body>
-    
-<nav class="bg-neutral-primary border-default">
-  <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-    <a href="https://flowbite.com/" class="flex items-center space-x-3 rtl:space-x-reverse">
-        <img src="https://flowbite.com/docs/images/logo.svg" class="h-7" alt="Flowbite Logo" />
-        <span class="self-center text-xl text-heading font-semibold whitespace-nowrap">Flowbite</span>
-    </a>
-    <button data-collapse-toggle="navbar-default" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-body rounded-base md:hidden hover:bg-neutral-secondary-soft hover:text-heading focus:outline-none focus:ring-2 focus:ring-neutral-tertiary" aria-controls="navbar-default" aria-expanded="false">
-        <span class="sr-only">Open main menu</span>
-        <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M5 7h14M5 12h14M5 17h14"/></svg>
-    </button>
-    <div class="hidden w-full md:block md:w-auto" id="navbar-default">
-      <ul class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-default rounded-base bg-neutral-secondary-soft md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-neutral-primary">
-        <li>
-          <a href="#" class="block py-2 px-3 text-white bg-brand rounded md:bg-transparent md:text-fg-brand md:p-0" aria-current="page">Home</a>
-        </li>
-        <li>
-          <a href="#" class="block py-2 px-3 text-heading rounded hover:bg-neutral-tertiary md:hover:bg-transparent md:border-0 md:hover:text-fg-brand md:p-0 md:dark:hover:bg-transparent">About</a>
-        </li>
-        <li>
-          <a href="#" class="block py-2 px-3 text-heading rounded hover:bg-neutral-tertiary md:hover:bg-transparent md:border-0 md:hover:text-fg-brand md:p-0 md:dark:hover:bg-transparent">Services</a>
-        </li>
-        <li>
-          <a href="#" class="block py-2 px-3 text-heading rounded hover:bg-neutral-tertiary md:hover:bg-transparent md:border-0 md:hover:text-fg-brand md:p-0 md:dark:hover:bg-transparent">Pricing</a>
-        </li>
-        <li>
-          <a href="#" class="block py-2 px-3 text-heading rounded hover:bg-neutral-tertiary md:hover:bg-transparent md:border-0 md:hover:text-fg-brand md:p-0 md:dark:hover:bg-transparent">Contact</a>
-        </li>
-      </ul>
+<div class="container mx-auto mt-5 px-4">
+    <div class="flex justify-between items-center mb-6">
+        <h1 class="text-2xl font-bold text-gray-800">Lista de Alumnos</h1>
+        <a href="{{ url_for('alumnos') }}" class="bg-green-500 hover:bg-green-600 text-white font-bold px-4 py-2 rounded shadow-md transition duration-200">
+            + Agregar Nuevo Registro
+        </a>
     </div>
-  </div>
-</nav>
 
+    <div class="relative overflow-x-auto shadow-lg sm:rounded-lg border border-gray-200">
+        <table class="w-full text-sm text-left text-gray-500">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-100 border-b">
+                <tr>
+                    <th scope="col" class="px-6 py-3">Nombre</th>
+                    <th scope="col" class="px-6 py-3">Apellido Paterno</th>
+                    <th scope="col" class="px-6 py-3">Apellido Materno</th>
+                    <th scope="col" class="px-6 py-3">Correo</th>
+                    <th scope="col" class="px-6 py-3 text-center">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {# El ciclo 'for' recorre la lista 'alumno' enviada desde app.py #}
+                {% for alum in alumno %}
+                <tr class="bg-white border-b hover:bg-gray-50 transition">
+                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                        {{ alum.nombre }}
+                    </th>
+                    <td class="px-6 py-4 text-gray-700">{{ alum.apaterno }}</td>
+                    <td class="px-6 py-4 text-gray-700">{{ alum.amaterno }}</td>
+                    <td class="px-6 py-4 text-gray-700">{{ alum.correo }}</td>
+                    <td class="px-6 py-4 text-center">
+                        <div class="inline-flex space-x-3">
+                            <a href="#" class="font-medium text-blue-600 hover:text-blue-800 hover:underline">Editar</a>
+                            <span class="text-gray-300">|</span>
+                            <a href="#" class="font-medium text-red-600 hover:text-red-800 hover:underline">Eliminar</a>
+                        </div>
+                    </td>
+                </tr>
+                {% else %}
+                {# Se muestra si la base de datos bdidgs805 está vacía #}
+                <tr class="bg-white">
+                    <td colspan="5" class="px-6 py-8 text-center text-gray-500 italic">
+                        No se encontraron alumnos registrados en la base de datos.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
 
-    <script src="https://cdn.jsdelivr.net/npm/flowbite@4.0.1/dist/flowbite.min.js"></script>
-</body>
-
-</html>
+{% endblock %}
