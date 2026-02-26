@@ -38,7 +38,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="C:\IDGS805\FlaskBDIDGS805\.env"
+VIRTUAL_ENV="C:\PYTHONIDGS805\FlaskBDIDGS805\.env"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"

@@ -1,78 +1,68 @@
 {% extends "layout.html" %} 
 {% block container %}
-{% import "_macros.html" as macros %} 
 
-<div class="container mx-auto mt-5 px-4">
-    <div class="flex justify-between items-center mb-6">
-        <h1 class="text-2xl font-bold text-gray-800">Lista de Alumnos</h1>
-        <a href="{{ url_for('alumnos') }}" class="bg-green-500 hover:bg-green-600 text-white font-bold px-4 py-2 rounded shadow-md transition duration-200 inline-flex items-center">
-            <svg class="w-5 h-5 me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
-            </svg>
-            + Agregar Nuevo Registro
-        </a>
-    </div>
+<div class="min-h-screen bg-[#f8fafc] py-12 px-6">
+    <div class="max-w-6xl mx-auto">
+        
+        {# Header con Estilo Moderno #}
+        <div class="flex flex-col sm:flex-row justify-between items-end mb-10 pb-6 border-b border-gray-200 gap-4">
+            <div>
+                <span class="text-blue-600 font-bold text-sm uppercase tracking-widest">Panel de Control</span>
+                <h1 class="text-4xl font-black text-slate-900 mt-1">Alumnos <span class="text-blue-600">.</span></h1>
+            </div>
+            
+            <a href="{{ url_for('alumnos') }}" class="group relative inline-flex items-center justify-center px-8 py-3.5 font-bold text-white transition-all duration-200 bg-blue-600 font-pj rounded-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 hover:bg-blue-700 shadow-lg shadow-blue-200">
+                <svg class="w-5 h-5 mr-2 transition-transform group-hover:rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                Agregar Alumno
+            </a>
+        </div>
 
-    <div class="relative overflow-x-auto shadow-lg sm:rounded-lg border border-gray-200">
-        <table class="w-full text-sm text-left text-gray-500">
-            <thead class="text-xs text-gray-700 uppercase bg-gray-100 border-b">
-                <tr>
-                    <th scope="col" class="px-6 py-3">Nombre</th>
-                    <th scope="col" class="px-6 py-3">Apellido Paterno</th>
-                    <th scope="col" class="px-6 py-3">Apellido Materno</th>
-                    <th scope="col" class="px-6 py-3">Correo</th>
-                    <th scope="col" class="px-6 py-3 text-center">Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for alum in alumno %}
-                <tr class="bg-white border-b hover:bg-gray-50 transition">
-                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                        {{ alum.nombre }}
-                    </th>
-                    <td class="px-6 py-4 text-gray-700">{{ alum.apaterno }}</td>
-                    <td class="px-6 py-4 text-gray-700">{{ alum.amaterno }}</td>
-                    <td class="px-6 py-4 text-gray-700">{{ alum.correo }}</td>
-                    <td class="px-6 py-4 text-center">
-                        <div class="inline-flex items-center space-x-3">
-                            
-                            <a href="{{ url_for('detalles', id=alum.id) }}" class="inline-flex items-center font-medium text-indigo-600 hover:text-indigo-800 hover:underline">
-                                <svg class="w-4 h-4 me-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.644C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 12.013a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                                </svg>
-                                Detalles
-                            </a>
-
-                            <span class="text-gray-300">|</span>
-
-                            <a href="#" class="inline-flex items-center font-medium text-blue-600 hover:text-blue-800 hover:underline">
-                                <svg class="w-4 h-4 me-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
-                                </svg>
-                                Editar
-                            </a>
-
-                            <span class="text-gray-300">|</span>
-
-                            <a href="#" class="inline-flex items-center font-medium text-red-600 hover:text-red-800 hover:underline">
-                                <svg class="w-4 h-4 me-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
-                                </svg>
-                                Eliminar
-                            </a>
-                        </div>
-                    </td>
-                </tr>
-                {% else %}
-                <tr class="bg-white">
-                    <td colspan="5" class="px-6 py-10 text-center text-gray-500 italic">
-                        No hay alumnos registrados.
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+        {# Card Contenedora de la Tabla #}
+        <div class="bg-white rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.05)] border border-gray-100 overflow-hidden">
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-separate border-spacing-0">
+                    <thead>
+                        <tr class="bg-slate-50">
+                            <th class="px-8 py-5 w-1/5 text-xs font-bold text-slate-400 uppercase tracking-widest border-b border-gray-100">Nombre</th>
+                            <th class="px-8 py-5 w-1/5 text-xs font-bold text-slate-400 uppercase tracking-widest border-b border-gray-100">Apellidos</th>
+                            <th class="px-8 py-5 w-1/4 text-xs font-bold text-slate-400 uppercase tracking-widest border-b border-gray-100">Email</th>
+                            <th class="px-8 py-5 w-40 text-xs font-bold text-slate-400 uppercase tracking-widest border-b border-gray-100">Teléfono</th>
+                            <th class="px-8 py-5 text-xs font-bold text-slate-400 uppercase tracking-widest border-b border-gray-100 text-center">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-50">
+                        {% for alum in alumno %}
+                        <tr class="group hover:bg-slate-50/80 transition-all duration-200">
+                             <td class="px-8 py-6">
+                                 <span class="text-sm font-bold text-slate-700 group-hover:text-blue-600 transition-colors">{{ alum.nombre }}</span>
+                            </td>
+                             <td class="px-8 py-6">
+                                 <span class="text-sm text-slate-500 font-medium">{{ alum.apellidos }}</span>
+                            </td>
+                            <td class="px-8 py-6">
+                                <div class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-blue-50 text-blue-600 border border-blue-100">
+                                     {{ alum.email }}
+                                </div>
+                             </td>
+                            <td class="px-8 py-6">
+                                    <span class="text-sm text-slate-600 font-semibold tracking-tight">{{ alum.telefono }}</span>
+                             </td>
+                            <td class="px-8 py-6">
+                                <div class="flex justify-center items-center gap-2">
+                                    <a href="{{ url_for('detalles', id=alum.id) }}" class="px-3 py-1.5 text-[10px] font-black text-blue-600 border border-blue-100 rounded-lg hover:bg-blue-600 hover:text-white transition-all">DETALLES</a>
+                                    <a href="{{ url_for('modificar', id=alum.id) }}" class="px-3 py-1.5 text-[10px] font-black text-amber-500 border border-amber-100 rounded-lg hover:bg-amber-500 hover:text-white transition-all">MODIFICAR</a>
+                                    <a href="{{ url_for('eliminar', id=alum.id) }}" class="px-3 py-1.5 text-[10px] font-black text-red-500 border border-red-100 rounded-lg hover:bg-red-500 hover:text-white transition-all">ELIMINAR</a>
+                                 </div>
+                                 </td>
+                                </tr>
+                            {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <p class="text-center text-slate-400 text-xs mt-8">Mostrando {{ alumno|length }} registros activos en la base de datos</p>
     </div>
 </div>
+
 {% endblock %}
