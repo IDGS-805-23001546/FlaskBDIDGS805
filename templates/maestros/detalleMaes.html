@@ -1,0 +1,29 @@
+{% extends "layout.html" %} 
+{% block container %}
+<div class="group py-32 flex justify-center relative overflow-x-auto sm:rounded-lg">
+
+    <div class="relative bg-neutral-primary-soft max-w-xs w-full p-6 border border-default rounded-base shadow-xs">
+        <div class="flex flex-col items-center">
+            <img class="w-24 h-24 mb-6 rounded-full" src="{{url_for('static', filename='img/usu.png')}}" alt="Imagen Maestro"/>
+            
+            <h5 class="mb-0.5 text-xl font-semibold tracking-tight text-heading text-center">
+                {{ nombre }} {{ apellidos }}
+            </h5>
+            
+            <span class="text-sm text-body mb-2">{{ email }}</span>
+            <span class="text-xs text-slate-400 mb-4 italic">Matrícula: {{ id }}</span>
+            
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-blue-50 text-blue-600 border border-blue-100">
+                Maestro
+            </span>
+            
+            <div class="flex mt-6 gap-4">
+                <a href="{{ url_for('maestros.lista_maestros') }}" class="inline-flex items-center text-white bg-blue-600 hover:bg-blue-700 shadow-xs font-medium leading-5 rounded-base text-sm px-6 py-2.5 focus:outline-none transition-colors">
+                    Regresar
+                </a>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

@@ -23,3 +23,7 @@ class UserForm2(Form):
     telefono = StringField("Telefono", [
         validators.DataRequired(message="El campo es requerido")
     ])
+    
+    especialidad = StringField("Especialidad", [
+        validators.DataRequired(message="El campo es requerido ")
+    ])

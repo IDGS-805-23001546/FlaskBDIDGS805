@@ -1,0 +1,59 @@
+{% extends "layout.html" %} 
+{% block container %}
+
+<div class="min-h-screen bg-gray-50 py-12 px-4">
+    <div class="max-w-xl mx-auto">
+        
+        <div class="text-center mb-10">
+            <h1 class="text-3xl font-black text-gray-900 tracking-tight">Modificar Maestro</h1>
+            <p class="text-gray-500 mt-2 font-medium">Edita los campos necesarios y guarda los cambios.</p>
+        </div>
+
+        <div class="bg-white rounded-[2.5rem] shadow-2xl shadow-gray-200/50 p-8 md:p-12 border border-gray-100">
+            <form method="POST" class="space-y-8">
+                {{ form.csrf_token }}
+                {{ form.id(type="hidden") }}
+
+                <div class="relative z-0 w-full group">
+                    {{ form.nombre(class="block py-4 px-0 w-full text-sm font-bold text-gray-900 bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer", placeholder=" ") }}
+                    <label class="absolute text-sm font-bold text-gray-400 duration-300 transform -translate-y-8 scale-75 top-4 -z-10 origin-[0] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-8 peer-focus:text-blue-600">
+                        Nombre
+                    </label>
+                </div>
+
+                <div class="relative z-0 w-full group">
+                    {{ form.apaterno(class="block py-4 px-0 w-full text-sm font-bold text-gray-900 bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer", placeholder=" ") }}
+                    <label class="absolute text-sm font-bold text-gray-400 duration-300 transform -translate-y-8 scale-75 top-4 -z-10 origin-[0] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-8 peer-focus:text-blue-600">
+                        Apellidos
+                    </label>
+                </div>
+
+                <div class="relative z-0 w-full group">
+                    {{ form.correo(class="block py-4 px-0 w-full text-sm font-bold text-gray-900 bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer", placeholder=" ") }}
+                    <label class="absolute text-sm font-bold text-gray-400 duration-300 transform -translate-y-8 scale-75 top-4 -z-10 origin-[0] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-8 peer-focus:text-blue-600">
+                        Correo Electrónico
+                    </label>
+                </div>
+
+                <div class="relative z-0 w-full group">
+                    {{ form.especialidad(class="block py-4 px-0 w-full text-sm font-bold text-gray-900 bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer", placeholder=" ") }}
+                    <label class="absolute text-sm font-bold text-gray-400 duration-300 transform -translate-y-8 scale-75 top-4 -z-10 origin-[0] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-8 peer-focus:text-blue-600">
+                        Especialidad
+                    </label>
+                </div>
+
+                <div class="flex flex-col sm:flex-row items-center gap-4 pt-6">
+                    <button type="submit" class="w-full sm:w-auto px-10 py-4 bg-blue-600 hover:bg-blue-700 text-white font-black rounded-2xl shadow-xl shadow-blue-200 transition-all transform active:scale-95">
+                        Guardar Cambios
+                    </button>
+                    
+                    <a href="{{ url_for('maestros.lista_maestros') }}" class="w-full sm:w-auto text-center px-10 py-4 bg-gray-100 hover:bg-gray-200 text-gray-600 font-bold rounded-2xl transition-all">
+                        Cancelar
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

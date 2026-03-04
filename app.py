@@ -3,15 +3,19 @@ from flask import flash
 from flask_wtf.csrf import CSRFProtect
 from flask_migrate import Migrate
 from config import DevelopmentConfig
+from maestros.routes import maestros
 import forms
 
 from models import db, Alumnos
 
 app = Flask(__name__)
 app.config.from_object(DevelopmentConfig)
+app.register_blueprint(maestros)
 db.init_app(app)
 migrate=Migrate(app,db)
 csrf=CSRFProtect()
+
+
 
 
 @app.errorhandler(404) 
@@ -23,7 +27,7 @@ def page_not_fount(e):
 def index():
     create_form=forms.UserForm2(request.form)
     alumno=Alumnos.query.all()
-    return render_template("index.html", form=create_form, alumno=alumno)
+    return render_template("alumnos/index.html", form=create_form, alumno=alumno)
 
 @app.route('/Alumnos', methods=['GET', 'POST'])
 def alumnos():
@@ -39,8 +43,8 @@ def alumnos():
         )
         db.session.add(alum)
         db.session.commit()
-        return redirect(url_for('index'))
-    return render_template("Alumnos.html", form=create_form)
+        return redirect(url_for('alumnos/index.html'))
+    return render_template("alumnos/Alumnos.html", form=create_form)
 
 @app.route("/detalles", methods=['GET', 'POST'])
 def detalles():
@@ -52,7 +56,7 @@ def detalles():
         apellidos = alumn1.apellidos 
         email = alumn1.email
         
-        return render_template('detalles.html', id=id, nombre=nombre, apellidos=apellidos, email=email)
+        return render_template('alumnos/detalles.html', id=id, nombre=nombre, apellidos=apellidos, email=email)
 
 @app.route('/modificar', methods=['GET', 'POST'])
 def modificar(): 
@@ -75,9 +79,9 @@ def modificar():
         alum.telefono  = create_form.telefono.data
         db.session.add(alum)
         db.session.commit()
-        return redirect(url_for('index'))
+        return redirect(url_for('alumnos/index'))
         
-    return render_template("modificar.html", form=create_form)
+    return render_template("alumnos/modificar.html", form=create_form)
 
 @app.route('/eliminar', methods=['GET', 'POST'])
 def eliminar(): 
@@ -101,7 +105,9 @@ def eliminar():
             db.session.commit()
         return redirect(url_for('index'))
         
-    return render_template("eliminar.html", form=create_form)
+    return render_template("alumnos/eliminar.html", form=create_form)
+
+
 
 if __name__ == '__main__':
     with app.app_context():

@@ -1,0 +1,64 @@
+{% extends "layout.html" %} 
+{% block container %}
+
+<div class="min-h-screen bg-gray-50 py-12 px-4">
+    <div class="max-w-xl mx-auto">
+        
+        <div class="text-center mb-10">
+            <div class="inline-flex items-center justify-center w-16 h-16 bg-red-100 text-red-600 rounded-full mb-4">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                </svg>
+            </div>
+            <h1 class="text-3xl font-black text-gray-900 tracking-tight">¿Eliminar Registro?</h1>
+            <p class="text-gray-500 mt-2 font-medium italic">Esta acción no se puede deshacer. Confirma los datos del maestro.</p>
+        </div>
+
+        <div class="bg-white rounded-[2.5rem] shadow-2xl shadow-red-100/50 p-8 md:p-12 border border-red-50">
+            <form method="POST" class="space-y-8">
+                {{ form.csrf_token }}
+                {{ form.id(type="hidden") }}
+
+                <div class="relative z-0 w-full group">
+                    {{ form.nombre(class="block py-4 px-0 w-full text-sm font-bold text-gray-400 bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 peer", readonly=True) }}
+                    <label class="absolute text-sm font-bold text-red-600 duration-300 transform -translate-y-8 scale-75 top-4 -z-10 origin-[0]">
+                        Nombre del Maestro
+                    </label>
+                </div>
+
+                <div class="relative z-0 w-full group">
+                    {{ form.apaterno(class="block py-4 px-0 w-full text-sm font-bold text-gray-400 bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 peer", readonly=True) }}
+                    <label class="absolute text-sm font-bold text-red-600 duration-300 transform -translate-y-8 scale-75 top-4 -z-10 origin-[0]">
+                        Apellidos registrados
+                    </label>
+                </div>
+
+                <div class="relative z-0 w-full group">
+                    {{ form.correo(class="block py-4 px-0 w-full text-sm font-bold text-gray-400 bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 peer", readonly=True) }}
+                    <label class="absolute text-sm font-bold text-red-600 duration-300 transform -translate-y-8 scale-75 top-4 -z-10 origin-[0]">
+                        Correo Electrónico
+                    </label>
+                </div>
+
+                <div class="relative z-0 w-full group">
+                    {{ form.especialidad(class="block py-4 px-0 w-full text-sm font-bold text-gray-400 bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 peer", readonly=True) }}
+                    <label class="absolute text-sm font-bold text-red-600 duration-300 transform -translate-y-8 scale-75 top-4 -z-10 origin-[0]">
+                       Especialidad
+                    </label>
+                </div>
+
+                <div class="flex flex-col sm:flex-row items-center gap-4 pt-6">
+                    <button type="submit" class="w-full sm:w-auto px-10 py-4 bg-red-600 hover:bg-red-700 text-white font-black rounded-2xl shadow-xl shadow-red-200 transition-all transform active:scale-95">
+                        Sí, Eliminar
+                    </button>
+                    
+                    <a href="{{ url_for('maestros.lista_maestros') }}" class="w-full sm:w-auto text-center px-10 py-4 bg-gray-100 hover:bg-gray-200 text-gray-600 font-bold rounded-2xl transition-all">
+                        No, Cancelar
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
