@@ -1,47 +1,43 @@
 {% extends "layout.html" %} 
 {% block container %}
-<div class="group py-32 flex justify-center relative overflow-x-auto sm:rounded-lg">
+<div class="group py-20 flex flex-col items-center relative overflow-x-auto sm:rounded-lg">
 
-    <div class="relative bg-neutral-primary-soft max-w-xs w-full p-6 border border-default rounded-base shadow-xs">
-        <button id="dropdownButton" data-dropdown-toggle="dropdown" class="absolute top-2 end-2 text-body hover:text-heading bg-neutral-primary-soft box-border border border-transparent hover:bg-neutral-tertiary focus:ring-4 focus:ring-neutral-tertiary rounded-base p-1.5 focus:outline-none" type="button">
-            <span class="sr-only">Open dropdown</span>
-            <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-width="3" d="M6 12h.01m6 0h.01m5.99 0h.01"/></svg>
-        </button>
-        
-        <div id="dropdown" class="z-10 bg-neutral-primary-medium border border-default-medium rounded-base shadow-lg w-36 block hidden">
-            <ul class="p-2 text-sm text-body font-medium" aria-labelledby="dropdownButton">
-                <li>
-                    <a href="#" class="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded-md">Edit</a>
-                </li>
-                <li>
-                    <a href="#" class="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded-md">Export Data</a>
-                </li>
-                <li>
-                    <a href="#" class="inline-flex items-center w-full p-2 text-fg-danger hover:bg-neutral-tertiary-medium rounded-md">Delete</a>
-                </li>
-            </ul>
-        </div>
-
+    <div class="relative bg-white max-w-sm w-full p-8 border border-gray-100 rounded-[2rem] shadow-xl mb-6">
         <div class="flex flex-col items-center">
-            <img class="w-24 h-24 mb-6 rounded-full" src="{{url_for('static', filename='img/usu.png')}}" alt="Imagen Alumno"/>
+            <img class="w-24 h-24 mb-6 rounded-full border-4 border-blue-50 shadow-sm" src="{{url_for('static', filename='img/usu.png')}}" alt="Imagen Alumno"/>
             
-            <h5 class="mb-0.5 text-xl font-semibold tracking-tight text-heading">
-                {{ nombre }} {{ apaterno }}
+            <h5 class="mb-1 text-2xl font-black tracking-tight text-slate-800">
+                {{ alumno.nombre }}
             </h5>
+            <p class="text-sm font-bold text-blue-600 mb-3 uppercase tracking-widest">{{ alumno.apellidos }}</p>
             
-            <span class="text-sm text-body mb-2">{{ email }}</span>
+            <span class="text-sm text-slate-400 mb-6 font-medium">{{ alumno.email }}</span>
             
-            <span class="text-sm text-body">Alumno</span>
-            
-            <div class="flex mt-4 md:mt-6 gap-4">
-                <a href="{{ url_for('index') }}" class="inline-flex items-center text-white bg-brand box-border border border-transparent hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">
-                    Regresar
+            <div class="flex gap-4">
+                <a href="{{ url_for('alumnos.index') }}" class="inline-flex items-center text-white bg-slate-900 hover:bg-blue-600 shadow-md font-bold rounded-xl text-xs px-6 py-3 transition-all">
+                    REGRESAR
                 </a>
-                
-                <button type="button" class="inline-flex self-start w-auto text-body bg-neutral-secondary-medium box-border border border-default-medium hover:bg-neutral-tertiary-medium hover:text-heading focus:ring-4 focus:ring-neutral-tertiary shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">
-                    Message
-                </button>
             </div>
+        </div>
+    </div>
+
+    <div class="max-w-sm w-full bg-white p-8 border border-gray-100 rounded-[2rem] shadow-lg">
+        <h3 class="text-xs font-black text-slate-400 uppercase tracking-[0.2em] mb-6 border-b border-gray-50 pb-4 text-center">
+            Cursos Inscritos ({{ alumno.cursos|length }})
+        </h3>
+        
+        <div class="space-y-3">
+            {% for curso in alumno.cursos %}
+            <div class="flex items-center p-4 bg-slate-50 rounded-2xl border border-transparent hover:border-blue-100 transition-all">
+                <div class="flex-1">
+                    <p class="text-sm font-extrabold text-slate-700 italic">{{ curso.nombre }}</p>
+                    <p class="text-[10px] text-slate-400 font-bold uppercase">{{ curso.maestro.nombre }}</p>
+                </div>
+                <span class="w-2 h-2 bg-blue-500 rounded-full shadow-sm shadow-blue-200"></span>
+            </div>
+            {% else %}
+            <p class="text-center text-xs text-slate-300 italic py-4">Sin cursos inscritos actualmente</p>
+            {% endfor %}
         </div>
     </div>
 

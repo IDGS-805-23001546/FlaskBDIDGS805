@@ -45,7 +45,6 @@ def modificar():
     if request.method == 'GET':
         id = request.args.get('id')
         maes1 = db.session.query(Maestros).filter(Maestros.matricula == id).first()
-        # Llenamos el form para que aparezcan los datos en los inputs
         create_form.id.data = maes1.matricula
         create_form.nombre.data = maes1.nombre
         create_form.apaterno.data = maes1.apellidos 

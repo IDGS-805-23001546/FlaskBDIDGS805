@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+
+{% block container %}
+<div class="min-h-screen bg-[#f8fafc] py-12 px-6">
+    <div class="max-w-2xl mx-auto">
+        <div class="bg-white rounded-[2.5rem] shadow-sm border border-gray-100 p-10">
+            <h1 class="text-3xl font-black text-slate-800 mb-2">Modificar Curso <span class="text-blue-600">.</span></h1>
+            <p class="text-slate-400 text-xs uppercase tracking-widest mb-8 font-bold">Editando: {{ curso.nombre }}</p>
+
+            <form action="{{ url_for('cursos.modificar', id=curso.id) }}" method="POST" class="space-y-6">
+                <div>
+                    <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2 ml-2">Nombre del Curso</label>
+                    <input type="text" name="nombre" value="{{ curso.nombre }}" required
+                           class="w-full bg-slate-50 border-none rounded-2xl px-6 py-4 text-sm font-bold text-slate-700 focus:ring-2 focus:ring-blue-500 transition-all">
+                </div>
+
+                <div>
+                    <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2 ml-2">Descripción</label>
+                    <textarea name="descripcion" rows="3" 
+                              class="w-full bg-slate-50 border-none rounded-2xl px-6 py-4 text-sm font-medium text-slate-600 focus:ring-2 focus:ring-blue-500 transition-all">{{ curso.descripcion }}</textarea>
+                </div>
+
+                <div>
+                    <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2 ml-2">Maestro Titular</label>
+                    <select name="maestro_id" required
+                            class="w-full bg-slate-50 border-none rounded-2xl px-6 py-4 text-sm font-bold text-slate-700 focus:ring-2 focus:ring-blue-500 transition-all">
+                        {% for maestro in maestros %}
+                            <option value="{{ maestro.matricula }}" {% if maestro.matricula == curso.maestro_id %}selected{% endif %}>
+                                {{ maestro.nombre }} {{ maestro.apellidos }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="flex gap-4 pt-4">
+                    <button type="submit" class="flex-1 bg-blue-600 text-white py-4 rounded-2xl font-bold hover:bg-blue-700 shadow-lg shadow-blue-100 transition-all">
+                        Guardar Cambios
+                    </button>
+                    <a href="{{ url_for('cursos.index') }}" class="flex-1 bg-slate-100 text-slate-400 py-4 rounded-2xl font-bold hover:bg-slate-200 text-center transition-all">
+                        Cancelar
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

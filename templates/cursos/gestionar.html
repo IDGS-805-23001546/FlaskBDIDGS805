@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+{% block container %}
+<div class="min-h-screen flex items-center justify-center bg-[#f8fafc] py-12 px-6">
+    <div class="max-w-md w-full bg-white rounded-[2rem] p-10 shadow-2xl border border-gray-100">
+        <h2 class="text-3xl font-black text-slate-900 mb-2">Gestionar Curso <span class="text-blue-600">.</span></h2>
+        <p class="text-slate-500 text-sm mb-6">Curso: <strong>{{ curso.nombre }}</strong></p>
+
+        <form method="POST" class="space-y-6">
+            <div>
+                <label class="block text-xs font-bold text-slate-400 uppercase mb-2">Inscribir Alumno</label>
+                <select name="alumno_id" required class="w-full px-4 py-3 rounded-xl border border-gray-100 bg-slate-50 outline-none">
+                    <option value="" disabled selected>Selecciona un alumno...</option>
+                    {% for a in alumnos %}
+                        <option value="{{ a.id }}">{{ a.nombre }} {{ a.apaterno }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="pt-4 flex items-center justify-between">
+                <a href="{{ url_for('cursos.index') }}" class="text-slate-400 text-xs font-bold hover:text-slate-600">VOLVER</a>
+                <button type="submit" class="bg-blue-600 text-white px-10 py-3 rounded-xl font-bold shadow-lg hover:bg-blue-700 transition-all">INSCRIBIR</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

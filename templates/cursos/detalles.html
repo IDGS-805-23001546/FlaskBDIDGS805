@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+
+{% block container %}
+<div class="min-h-screen bg-[#f8fafc] py-12 px-6 flex flex-col items-center">
+    <div class="bg-white w-full max-w-lg rounded-[2.5rem] shadow-xl border border-gray-100 overflow-hidden">
+        
+        <div class="bg-slate-900 p-10 text-center relative">
+            <div class="w-20 h-20 bg-blue-600 rounded-3xl mx-auto mb-4 flex items-center justify-center text-white text-3xl font-black shadow-lg">
+                {{ curso.nombre[0] }}
+            </div>
+            <h2 class="text-2xl font-black text-white italic uppercase">{{ curso.nombre }}</h2>
+            <p class="text-blue-400 text-[10px] font-bold uppercase tracking-[0.2em] mt-1">Ficha Informativa</p>
+        </div>
+
+        <div class="p-8 text-center border-b border-gray-50">
+            <span class="text-slate-400 text-[9px] font-bold uppercase tracking-widest block mb-1">Maestro Titular</span>
+            <p class="text-xl font-extrabold text-slate-800">{{ curso.maestro.nombre }} {{ curso.maestro.apellidos }}</p>
+        </div>
+
+        <div class="p-8">
+            <h3 class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-4 text-center">Alumnos Inscritos ({{ curso.alumnos|length }})</h3>
+            <div class="space-y-2 max-h-64 overflow-y-auto pr-2 custom-scrollbar">
+                {% for alumno in curso.alumnos %}
+                <div class="flex items-center justify-between p-3 bg-slate-50 rounded-2xl border border-gray-100">
+                    <span class="text-xs font-bold text-slate-700">{{ alumno.nombre }} {{ alumno.apaterno }}</span>
+                    <span class="text-[9px] text-slate-300 font-bold">ID: {{ alumno.id }}</span>
+                </div>
+                {% else %}
+                <p class="text-center text-slate-300 italic text-xs py-4">No hay alumnos inscritos todavía.</p>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="p-8 bg-slate-50/50 text-center">
+            <a href="{{ url_for('cursos.index') }}" class="bg-slate-900 text-white px-10 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-blue-600 transition-all shadow-md">
+                ← Regresar a Cursos
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
